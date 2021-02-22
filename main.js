@@ -16,8 +16,17 @@ function flipCard() {
         secondCard = this;
 
         // les cartes correspondent-elles?
-        console.log(firstCard.dataset.framework);
-        console.log(secondCard.dataset.framework);
+        if (firstCard.dataset.framework === secondCard.dataset.framework) {
+            //  si ça correspond
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+        } else {
+            // si ça ne correspond pas
+            setTimeout(() => {
+                firstCard.classList.remove('flip');
+                secondCard.classList.remove('flip');
+            }, 1500);
+        }
     }
 }
 
