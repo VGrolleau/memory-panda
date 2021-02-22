@@ -8,3 +8,7 @@ body {
     height: 100vh;
     background: top right / cover no-repeat url('img/panda-bg.png');
 }
+
+img {
+    width: 100px;
+}
