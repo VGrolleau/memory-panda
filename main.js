@@ -31,10 +31,14 @@ function checkForMatch() {
 }
 
 function disableCards() {
-    firstCard.removeEventListener('click', flipCard);
-    secondCard.removeEventListener('click', flipCard);
+    setTimeout(() => {
+        firstCard.style.transition = "opacity 1s linear 0s";
+        firstCard.style.opacity = 0;
+        secondCard.style.transition = "opacity 1s linear 0s";
+        secondCard.style.opacity = 0;
 
-    resetBoard();
+        resetBoard();
+    }, 1800);
 }
 
 function unflipCards() {
