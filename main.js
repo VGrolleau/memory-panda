@@ -1,5 +1,6 @@
 const cards = document.querySelectorAll('.memory-card');
-
+let eltScore = document.getElementById('score');
+let score = 0;
 let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
@@ -27,7 +28,16 @@ function flipCard() {
 function checkForMatch() {
     let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
 
-    isMatch ? disableCards() : unflipCards();
+    // isMatch ? disableCards() : unflipCards();
+    if (isMatch) {
+        disableCards();
+        score += 50;
+    } else {
+        unflipCards();
+        score = Math.max(0, score - 10);
+    }
+
+    score > 0 ? eltScore.textContent = `${score} points` : eltScore.textContent = score;
 }
 
 function disableCards() {
