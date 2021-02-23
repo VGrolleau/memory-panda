@@ -1,9 +1,15 @@
 const cards = document.querySelectorAll('.memory-card');
+const playerName = document.querySelector('#player-name');
 let eltScore = document.getElementById('score');
 let score = 0;
 let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
+
+document.getElementById('confirm-name').addEventListener('click', function() {
+    document.querySelector('#popup-name').style.display = 'none';
+    alert(`Coucou ${playerName.value}, jouons au Memory Panda ! On va bien rigoler !`);
+})
 
 function flipCard() {
     if (lockBoard) return;
