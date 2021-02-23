@@ -43,6 +43,15 @@ function checkForMatch() {
         eltScore.textContent += ' ==> GAGNÉ !';
 
         alert(`Félicitations !! Tu as fini la partie avec ${score} points.`);
+
+        sectionRestart();
+
+        document.addEventListener('click', function(e) {
+            // console.log(this.className);
+            if (e.target.className == 'restart') {
+                location.reload();
+            }
+        });
     }
 }
 
@@ -71,6 +80,19 @@ function unflipCards() {
 function resetBoard() {
     [hasFlippedCard, lockBoard] = [false, false];
     [firstCard, secondCard] = [null, null];
+}
+
+function sectionRestart() {
+    let newSection = document.createElement('section');
+    let newBtn = document.createElement('button');
+    let btnText = document.createTextNode('Recommencer');
+    newBtn.appendChild(btnText);
+    newSection.appendChild(newBtn);
+
+    let currentSection = document.getElementById('memory-game');
+    document.body.insertBefore(newSection, currentSection);
+
+    newBtn.classList.add('restart');
 }
 
 (function shuffle() {

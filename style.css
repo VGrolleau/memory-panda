@@ -23,7 +23,7 @@ p {
     margin: 10px auto;
 }
 
-.memory-game {
+#memory-game {
     width: 640px;
     height: 640px;
     margin: auto;
@@ -48,6 +48,11 @@ p {
     transition: transform .2s;
 }
 
+.memory-card:hover,
+.restart:hover {
+    cursor: pointer;
+}
+
 .memory-card.flip,
 .front-face {
     transform: rotateY(3.142rad);
@@ -62,4 +67,16 @@ p {
     border-radius: 5px;
     background: lightgreen;
     backface-visibility: hidden;
+}
+
+.restart {
+    display: flex;
+    margin: auto;
+    padding: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: lightgreen;
+    border-color: sienna;
+    border-radius: 5px;
+    color: sienna;
 }
