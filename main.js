@@ -38,6 +38,11 @@ function checkForMatch() {
     }
 
     score > 0 ? eltScore.textContent = `${score} points` : eltScore.textContent = score;
+
+    if (document.getElementsByClassName('flip').length == 16) {
+        eltScore.textContent += ' ==> GAGNÉ !';
+        console.log('OK !');
+    }
 }
 
 function disableCards() {
