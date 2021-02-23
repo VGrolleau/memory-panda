@@ -7,13 +7,27 @@
 body {
     height: 100vh;
     display: flex;
+    flex-direction: column;
     background: top right / cover no-repeat url('img/panda-bg.png');
+}
+
+h1,
+h2,
+p {
+    text-align: center;
+}
+
+h1,
+p {
+    text-transform: uppercase;
+    margin: 10px auto;
 }
 
 .memory-game {
     width: 640px;
     height: 640px;
     margin: auto;
+    margin-top: 0;
     display: flex;
     flex-wrap: wrap;
     perspective: 1000px;
