@@ -41,7 +41,8 @@ function checkForMatch() {
 
     if (document.getElementsByClassName('flip').length == 16) {
         eltScore.textContent += ' ==> GAGNÉ !';
-        console.log('OK !');
+
+        alert(`Félicitations !! Tu as fini la partie avec ${score} points.`);
     }
 }
 
@@ -53,7 +54,7 @@ function disableCards() {
         secondCard.style.opacity = 0;
 
         resetBoard();
-    }, 1800);
+    }, 1500);
 }
 
 function unflipCards() {
