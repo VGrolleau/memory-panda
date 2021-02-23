@@ -1,6 +1,7 @@
 const cards = document.querySelectorAll('.memory-card');
 const playerName = document.querySelector('#player-name');
 let eltScore = document.getElementById('score');
+let muteBtn = document.getElementById('muteBtn');
 let score = 0;
 let hasFlippedCard = false;
 let lockBoard = false;
@@ -9,8 +10,10 @@ let firstCard, secondCard;
 document.getElementById('confirm-name').addEventListener('click', function() {
     document.querySelector('#popup-name').style.display = 'none';
     alert(`Coucou ${playerName.value}, jouons au Memory Panda ! On va bien rigoler !`);
-    // ambiant();
+    ambiant();
 })
+
+
 
 function flipCard() {
     if (lockBoard) return;
@@ -48,7 +51,6 @@ function checkForMatch() {
     score > 0 ? eltScore.textContent = `${score} points` : eltScore.textContent = score;
 
     if (document.getElementsByClassName('flip').length == 16) {
-        eltScore.textContent += ' ==> GAGNÉ !';
         victory();
         alert(`Félicitations !! Tu as fini la partie avec ${score} points.`);
 
@@ -107,14 +109,50 @@ function sectionRestart() {
     newBtn.classList.add('restart');
 }
 
-// function ambiant() {
-//     let ambiantSound = new Audio('audio/ambiant.mp3');
+function ambiant() {
+    let ambiantSound = new Audio('audio/ambiant.mp3');
 
-//     while (document.getElementsByClassName('flip').length != 16) {
-//         ambiantSound.play();
-//     }
+    ambiantSound.play();
+    ambiantSound.onended = function() {
+        setTimeout(RelanceAud, 500);
+    };
 
-// }
+    function RelanceAud() {
+        ambiantSound.play();
+    }
+
+    muteBtn.addEventListener('click', mute);
+
+    function mute() {
+        if (ambiantSound.muted) {
+            ambiantSound.muted = false;
+            muteBtn.innerHTML = '<img src="img/speaker.png" alt="Image haut parleur">';
+        } else {
+            ambiantSound.muted = true;
+            muteBtn.innerHTML = '<img src="img/mute.png" alt="Image haut parleur barré">';
+        }
+    }
+
+    // let scoreSection = document.getElementById('score-section');
+    // scoreSection.addEventListener('click', counting);
+
+    // function counting() {
+    //     let count = '';
+    //     for (let counter = 0; counter < 10;) {
+    //         if (('click') && (counter < 2)) {
+    //             counter++;
+    //         } else if (counter=10) {
+
+    //         }
+    //         count = counter;
+    //         console.log(count);
+    //     }
+    // }
+
+    // if (muteBtn) {
+
+    // }
+}
 
 function turning() {
     let turningSound = new Audio('audio/turning-page.mp3');

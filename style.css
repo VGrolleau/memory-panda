@@ -67,6 +67,33 @@ p {
     margin: 10px auto;
 }
 
+#score-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+#score-section p {
+    margin: 0;
+}
+
+#muteBtn {
+    /* background-image: url('img/speaker.png'); */
+    width: 18px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+#muteBtn img {
+    width: 18px;
+    height: 20px;
+}
+
+#muteBtn:hover {
+    cursor: pointer;
+}
+
 #memory-game {
     width: 640px;
     height: 640px;
