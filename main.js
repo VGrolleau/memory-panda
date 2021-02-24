@@ -6,11 +6,12 @@ let score = 0;
 let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
+let autoplay = false;
 
 document.getElementById('confirm-name').addEventListener('click', function() {
     document.querySelector('#popup-name').style.display = 'none';
     alert(`Coucou ${playerName.value}, jouons au Memory Panda ! On va bien rigoler !`);
-    // ambiant();
+    ambiant();
 })
 
 function flipCard() {
@@ -53,6 +54,8 @@ function checkForMatch() {
         alert(`Félicitations !! Tu as fini la partie avec ${score} points.`);
 
         sectionRestart();
+
+        // ambiantSound.stop();
 
         document.addEventListener('click', function(e) {
             if (e.target.className == 'restart') {
@@ -108,17 +111,38 @@ function sectionRestart() {
     let btnRestart = document.createElement('button');
     let textRestart = document.createTextNode('Recommencer');
     let btnPresent = document.createElement('div');
+    // let pPresent = document.createElement('p');
+    // let textPresent = document.createTextNode('Cliques moi ! ==>');
+    let sectionVideo = document.createElement('section');
+    let divVideo = document.createElement('div');
+
     btnRestart.appendChild(textRestart);
     divRestart.appendChild(btnRestart);
     newSection.appendChild(divRestart);
     newSection.appendChild(btnPresent);
+    sectionVideo.appendChild(divVideo);
+
     newSection.classList.add('section-restart');
     btnRestart.classList.add('restart');
     btnPresent.classList.add('present');
-    btnPresent.innerHTML = '<img src="img/red-present.png" id="img-present" onmouseover=passageDeLaSouris(this); onmouseout=departDeLaSouris(this);>';
+
+    btnPresent.innerHTML = '<p id="pPresent">Cliques moi ! ==> <img src="img/red-present.png" id="img-present" onmouseover=passageDeLaSouris(this); onmouseout=departDeLaSouris(this);></p>';
 
     let currentSection = document.getElementById('memory-game');
     document.body.insertBefore(newSection, currentSection);
+
+    let btnPresentImg = document.getElementById('img-present');
+    btnPresentImg.addEventListener('click', videoContent);
+
+    function videoContent() {
+        divVideo.innerHTML = '<iframe width="560" height="315" src="https://www.youtube.com/embed/QH2-TGUlwu4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="nyancatVideo"></iframe>';
+        let nyancatVideo = document.getElementById('nyancatVideo');
+        nyancatVideo.autoplay = true;
+        videojs("example_video_1", { "controls": true, "autoplay": true, "preload": "auto" });
+    }
+
+    // let actualSection = document.getElementById('top');
+    document.body.insertBefore(sectionVideo, currentSection);
 }
 
 function ambiant() {
@@ -144,6 +168,14 @@ function ambiant() {
             muteBtn.innerHTML = '<img src="img/mute.png" alt="Image haut parleur barré">';
         }
     }
+
+    // function stopAmbiant() {
+    //     if (ambiantSound.stop) {
+    //         ambiantSound.stoped = false;
+    //     } else {
+    //         ambiantSound.stoped = true;
+    //     }
+    // }
 }
 
 function turning() {

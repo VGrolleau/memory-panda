@@ -160,10 +160,13 @@ p {
     color: sienna;
 }
 
+.present {
+    margin-left: 10px;
+}
+
 #img-present {
     width: 18px;
     height: 20px;
-    margin-left: 10px;
     transition: transform .5s;
 }
 
