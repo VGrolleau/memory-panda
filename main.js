@@ -10,10 +10,8 @@ let firstCard, secondCard;
 document.getElementById('confirm-name').addEventListener('click', function() {
     document.querySelector('#popup-name').style.display = 'none';
     alert(`Coucou ${playerName.value}, jouons au Memory Panda ! On va bien rigoler !`);
-    ambiant();
+    // ambiant();
 })
-
-
 
 function flipCard() {
     if (lockBoard) return;
@@ -96,17 +94,31 @@ function resetBoard() {
     [firstCard, secondCard] = [null, null];
 }
 
+function passageDeLaSouris(element) {
+    element.setAttribute('src', 'img/green-present.png');
+}
+
+function departDeLaSouris(element) {
+    element.setAttribute('src', 'img/red-present.png');
+}
+
 function sectionRestart() {
     let newSection = document.createElement('section');
-    let newBtn = document.createElement('button');
-    let btnText = document.createTextNode('Recommencer');
-    newBtn.appendChild(btnText);
-    newSection.appendChild(newBtn);
+    let divRestart = document.createElement('div');
+    let btnRestart = document.createElement('button');
+    let textRestart = document.createTextNode('Recommencer');
+    let btnPresent = document.createElement('div');
+    btnRestart.appendChild(textRestart);
+    divRestart.appendChild(btnRestart);
+    newSection.appendChild(divRestart);
+    newSection.appendChild(btnPresent);
+    newSection.classList.add('section-restart');
+    btnRestart.classList.add('restart');
+    btnPresent.classList.add('present');
+    btnPresent.innerHTML = '<img src="img/red-present.png" id="img-present" onmouseover=passageDeLaSouris(this); onmouseout=departDeLaSouris(this);>';
 
     let currentSection = document.getElementById('memory-game');
     document.body.insertBefore(newSection, currentSection);
-
-    newBtn.classList.add('restart');
 }
 
 function ambiant() {
@@ -132,26 +144,6 @@ function ambiant() {
             muteBtn.innerHTML = '<img src="img/mute.png" alt="Image haut parleur barré">';
         }
     }
-
-    // let scoreSection = document.getElementById('score-section');
-    // scoreSection.addEventListener('click', counting);
-
-    // function counting() {
-    //     let count = '';
-    //     for (let counter = 0; counter < 10;) {
-    //         if (('click') && (counter < 2)) {
-    //             counter++;
-    //         } else if (counter=10) {
-
-    //         }
-    //         count = counter;
-    //         console.log(count);
-    //     }
-    // }
-
-    // if (muteBtn) {
-
-    // }
 }
 
 function turning() {
@@ -169,11 +161,11 @@ function victory() {
     victorySound.play();
 }
 
-(function shuffle() {
-    cards.forEach(card => {
-        let randomPos = Math.floor(Math.random() * 16);
-        card.style.order = randomPos;
-    });
-})();
+// (function shuffle() {
+//     cards.forEach(card => {
+//         let randomPos = Math.floor(Math.random() * 16);
+//         card.style.order = randomPos;
+//     });
+// })();
 
 cards.forEach(card => card.addEventListener('click', flipCard));
