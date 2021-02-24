@@ -111,8 +111,6 @@ function sectionRestart() {
     let btnRestart = document.createElement('button');
     let textRestart = document.createTextNode('Recommencer');
     let btnPresent = document.createElement('div');
-    // let pPresent = document.createElement('p');
-    // let textPresent = document.createTextNode('Cliques moi ! ==>');
     let sectionVideo = document.createElement('section');
     let divVideo = document.createElement('div');
 
@@ -125,6 +123,8 @@ function sectionRestart() {
     newSection.classList.add('section-restart');
     btnRestart.classList.add('restart');
     btnPresent.classList.add('present');
+    sectionVideo.classList.add('sectionVideo');
+    divVideo.classList.add('divVideo');
 
     btnPresent.innerHTML = '<p id="pPresent">Cliques moi ! ==> <img src="img/red-present.png" id="img-present" onmouseover=passageDeLaSouris(this); onmouseout=departDeLaSouris(this);></p>';
 
@@ -135,10 +135,23 @@ function sectionRestart() {
     btnPresentImg.addEventListener('click', videoContent);
 
     function videoContent() {
-        divVideo.innerHTML = '<iframe width="560" height="315" src="https://www.youtube.com/embed/QH2-TGUlwu4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="nyancatVideo"></iframe>';
-        let nyancatVideo = document.getElementById('nyancatVideo');
-        nyancatVideo.autoplay = true;
-        videojs("example_video_1", { "controls": true, "autoplay": true, "preload": "auto" });
+        divVideo.innerHTML = '<iframe width="560" height="315" src="https://www.youtube.com/embed/QH2-TGUlwu4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="nyancatVideo"></iframe><img src="img/cancel.png" class="close">';
+        sectionVideo.style.background = 'rgba(0, 0, 0, .5)';
+        sectionVideo.style.width = '100%';
+        sectionVideo.style.height = '100%';
+        sectionVideo.style.position = 'absolute';
+
+        document.querySelector('.close').addEventListener('click', function() {
+            document.querySelector('.sectionVideo').style.display = 'none';
+        })
+
+        btnPresentImg.addEventListener('click', function() {
+            document.querySelector('.sectionVideo').style.display = 'flex';
+        })
+
+        // let nyancatVideo = document.getElementById('nyancatVideo');
+        // nyancatVideo.autoplay = true;
+        // videojs("example_video_1", { "controls": true, "autoplay": true, "preload": "auto" });
     }
 
     // let actualSection = document.getElementById('top');
