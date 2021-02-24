@@ -135,7 +135,7 @@ function sectionRestart() {
     btnPresentImg.addEventListener('click', videoContent);
 
     function videoContent() {
-        divVideo.innerHTML = '<iframe width="560" height="315" src="https://www.youtube.com/embed/QH2-TGUlwu4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="nyancatVideo"></iframe><img src="img/cancel.png" class="close">';
+        divVideo.innerHTML = '<iframe width="560" height="315" src="https://www.youtube.com/embed/QH2-TGUlwu4?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen; id="nyancatVideo"></iframe><img src="img/cancel.png" class="close">';
         sectionVideo.style.background = 'rgba(0, 0, 0, .5)';
         sectionVideo.style.width = '100%';
         sectionVideo.style.height = '100%';
@@ -150,7 +150,20 @@ function sectionRestart() {
         })
 
         // let nyancatVideo = document.getElementById('nyancatVideo');
-        // nyancatVideo.autoplay = true;
+
+        // let playVid = setTimeout(function() {
+        //     nyancatVideo.play();
+        // }, 4000);
+
+        // nyancatVideo.addEventListener('click', function(event) {
+        //     if (nyancatVideo.paused) {
+        //         clearTimeout(playVid);
+        //         nyancatVideo.play();
+        //     } else {
+        //         nyancatVideo.pause();
+        //     }
+        // }, false);
+
         // videojs("example_video_1", { "controls": true, "autoplay": true, "preload": "auto" });
     }
 
