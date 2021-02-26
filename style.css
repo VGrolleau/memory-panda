@@ -37,6 +37,26 @@ body {
     align-items: center;
 }
 
+#popup-content h1::before,
+#popup-content h1::after {
+    content: '';
+    display: inline-block;
+    background: url('img/panda.png') no-repeat;
+    background-size: 100%;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: 8px;
+}
+
+#popup-content h1::before {
+    margin-right: 10px;
+}
+
+#popup-content h1::after {
+    margin-left: 10px;
+}
+
 #confirm-name {
     margin-top: 20px;
     padding: 10px 20px;
@@ -46,12 +66,15 @@ body {
     border-color: lightgreen;
     background: sienna;
     color: lightgreen;
+    transition: color .5s;
 }
 
 #confirm-name:hover {
     border-color: sienna;
     background: lightgreen;
     color: sienna;
+    cursor: pointer;
+    transition: color .5s;
 }
 
 h1,
@@ -62,9 +85,18 @@ input {
 }
 
 h1,
+h2,
 p {
     text-transform: uppercase;
-    margin: 10px auto;
+}
+
+
+/* h1, */
+
+h2,
+p {
+    color: sienna;
+    margin: 30px auto 10px;
 }
 
 #score-section {
@@ -75,7 +107,9 @@ p {
 }
 
 #score-section p {
-    margin: 0;
+    margin-left: 0;
+    margin-top: 10px;
+    color: inherit;
 }
 
 #muteBtn {
@@ -83,6 +117,7 @@ p {
     width: 18px;
     height: 20px;
     margin-right: 10px;
+    margin-left: auto;
 }
 
 #muteBtn img {
@@ -112,6 +147,8 @@ p {
     transform: scale(1);
     transform-style: preserve-3d;
     transition: transform .5s;
+    border-radius: 5px;
+    box-shadow: 6px 6px 29px -4px rgba(0, 0, 0, .8);
 }
 
 .memory-card:active {
@@ -119,9 +156,7 @@ p {
     transition: transform .2s;
 }
 
-.memory-card:hover,
-.restart:hover,
-#confirm-name {
+.memory-card:hover {
     cursor: pointer;
 }
 
@@ -154,9 +189,23 @@ p {
     text-transform: uppercase;
     font-weight: bold;
     background-color: lightgreen;
-    border-color: sienna;
+    border-color: lightgreen;
     border-radius: 5px;
     color: sienna;
+    transition: color .5s;
+}
+
+.restart:hover {
+    cursor: pointer;
+    border-color: sienna;
+    background: sienna;
+    color: lightgreen;
+    transition: color .5s;
+}
+
+#pPresent {
+    color: inherit;
+    margin-top: 10px;
 }
 
 .present {

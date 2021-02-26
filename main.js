@@ -11,6 +11,7 @@ let loopAud = 0;
 let ambiantSound = new Audio('audio/ambiant.mp3');
 
 function ambiant() {
+    ambiantSound.volume = .75;
     ambiantSound.play();
 
     function RelanceAud() {
