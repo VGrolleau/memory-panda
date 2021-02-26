@@ -2,11 +2,65 @@ const cards = document.querySelectorAll('.memory-card');
 const playerName = document.querySelector('#player-name');
 let eltScore = document.getElementById('score');
 let muteBtn = document.getElementById('muteBtn');
+let pauseBtn = document.getElementById('btnPause');
 let score = 0;
 let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
-let autoplay = false;
+let loopAud = 0;
+let ambiantSound = new Audio('audio/ambiant.mp3');
+
+function ambiant() {
+    ambiantSound.play();
+
+    function RelanceAud() {
+        ambiantSound.play();
+        loopAud++;
+    }
+
+    ambiantSound.onended = function() {
+        if (loopAud < 1) {
+            timeOutAmbiant = setTimeout(RelanceAud, 500);
+        }
+    };
+
+    muteBtn.addEventListener('click', mute);
+
+    function mute() {
+        if (ambiantSound.muted) {
+            ambiantSound.muted = false;
+            muteBtn.innerHTML = '<img src="img/speaker.png" alt="Image haut parleur">';
+        } else {
+            ambiantSound.muted = true;
+            muteBtn.innerHTML = '<img src="img/mute.png" alt="Image haut parleur barré">';
+        }
+    }
+}
+
+function turning() {
+    let turningSound = new Audio('audio/turning-page.mp3');
+    turningSound.play();
+}
+
+function goodCard() {
+    let goodCardSound = new Audio('audio/good-card.mp3');
+    goodCardSound.play();
+}
+
+function victory() {
+    let victorySound = new Audio('audio/victory.mp3');
+    victorySound.play();
+    ambiantSound.pause();
+}
+
+// (function shuffle() {
+//     cards.forEach(card => {
+//         let randomPos = Math.floor(Math.random() * 16);
+//         card.style.order = randomPos;
+//     });
+// })();
+
+cards.forEach(card => card.addEventListener('click', flipCard));
 
 document.getElementById('confirm-name').addEventListener('click', function() {
     document.querySelector('#popup-name').style.display = 'none';
@@ -50,12 +104,11 @@ function checkForMatch() {
     score > 0 ? eltScore.textContent = `${score} points` : eltScore.textContent = score;
 
     if (document.getElementsByClassName('flip').length == 16) {
+        loopAud++;
         victory();
         alert(`Félicitations !! Tu as fini la partie avec ${score} points.`);
 
         sectionRestart();
-
-        // ambiantSound.stop();
 
         document.addEventListener('click', function(e) {
             if (e.target.className == 'restart') {
@@ -143,87 +196,13 @@ function sectionRestart() {
 
         document.querySelector('.close').addEventListener('click', function() {
             document.querySelector('.sectionVideo').style.display = 'none';
+            divVideo.innerHTML = '<iframe width="560" height="315" src="https://www.youtube.com/embed/QH2-TGUlwu4?autoplay=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen; id="nyancatVideo"></iframe><img src="img/cancel.png" class="close">';
         })
 
         btnPresentImg.addEventListener('click', function() {
             document.querySelector('.sectionVideo').style.display = 'flex';
         })
-
-        // let nyancatVideo = document.getElementById('nyancatVideo');
-
-        // let playVid = setTimeout(function() {
-        //     nyancatVideo.play();
-        // }, 4000);
-
-        // nyancatVideo.addEventListener('click', function(event) {
-        //     if (nyancatVideo.paused) {
-        //         clearTimeout(playVid);
-        //         nyancatVideo.play();
-        //     } else {
-        //         nyancatVideo.pause();
-        //     }
-        // }, false);
-
-        // videojs("example_video_1", { "controls": true, "autoplay": true, "preload": "auto" });
     }
 
-    // let actualSection = document.getElementById('top');
     document.body.insertBefore(sectionVideo, currentSection);
 }
-
-function ambiant() {
-    let ambiantSound = new Audio('audio/ambiant.mp3');
-
-    ambiantSound.play();
-    ambiantSound.onended = function() {
-        setTimeout(RelanceAud, 500);
-    };
-
-    function RelanceAud() {
-        ambiantSound.play();
-    }
-
-    muteBtn.addEventListener('click', mute);
-
-    function mute() {
-        if (ambiantSound.muted) {
-            ambiantSound.muted = false;
-            muteBtn.innerHTML = '<img src="img/speaker.png" alt="Image haut parleur">';
-        } else {
-            ambiantSound.muted = true;
-            muteBtn.innerHTML = '<img src="img/mute.png" alt="Image haut parleur barré">';
-        }
-    }
-
-    // function stopAmbiant() {
-    //     if (ambiantSound.stop) {
-    //         ambiantSound.stoped = false;
-    //     } else {
-    //         ambiantSound.stoped = true;
-    //     }
-    // }
-}
-
-function turning() {
-    let turningSound = new Audio('audio/turning-page.mp3');
-    turningSound.play();
-}
-
-function goodCard() {
-    let goodCardSound = new Audio('audio/good-card.mp3');
-    goodCardSound.play();
-}
-
-function victory() {
-    let victorySound = new Audio('audio/victory.mp3');
-    victorySound.play();
-}
-
-// (function shuffle() {
-//     cards.forEach(card => {
-//         let randomPos = Math.floor(Math.random() * 16);
-//         card.style.order = randomPos;
-//     });
-// })();
-
-cards.forEach(card => card.addEventListener('click', flipCard));
