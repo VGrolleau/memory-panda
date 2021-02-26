@@ -8,7 +8,7 @@ let hasFlippedCard = false;
 let lockBoard = false;
 let lockCard = false;
 let firstCard, secondCard;
-let loopAud = 0;
+// let loopAud = 0;
 let ambiantSound = new Audio('audio/ambiant.mp3');
 
 function ambiant() {
@@ -17,13 +17,13 @@ function ambiant() {
 
     function RelanceAud() {
         ambiantSound.play();
-        loopAud++;
+        // loopAud++;
     }
 
     ambiantSound.onended = function() {
-        if (loopAud < 1) {
-            timeOutAmbiant = setTimeout(RelanceAud, 500);
-        }
+        // if (loopAud < 1) {
+        timeOutAmbiant = setTimeout(RelanceAud, 500);
+        // }
     };
 
     muteBtn.addEventListener('click', mute);
@@ -72,7 +72,7 @@ document.getElementById('confirm-name').addEventListener('click', function() {
 
 function flipCard() {
     if (lockBoard) return;
-    if (lockCard) return;
+    // if (lockCard) return;
     if (this === firstCard) return;
 
     this.classList.add('flip');
@@ -111,7 +111,7 @@ function checkForMatch() {
     score > 0 ? eltScore.textContent = `${score} points` : eltScore.textContent = score;
 
     if (document.getElementsByClassName('flip').length == 16) {
-        loopAud++;
+        // loopAud++;
         victory();
         alert(`Félicitations !! Tu as fini la partie avec ${score} points.`);
 
