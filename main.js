@@ -6,6 +6,7 @@ let pauseBtn = document.getElementById('btnPause');
 let score = 0;
 let hasFlippedCard = false;
 let lockBoard = false;
+let lockCard = false;
 let firstCard, secondCard;
 let loopAud = 0;
 let ambiantSound = new Audio('audio/ambiant.mp3');
@@ -71,6 +72,7 @@ document.getElementById('confirm-name').addEventListener('click', function() {
 
 function flipCard() {
     if (lockBoard) return;
+    if (lockCard) return;
     if (this === firstCard) return;
 
     this.classList.add('flip');
@@ -79,6 +81,7 @@ function flipCard() {
         // 1er click
         hasFlippedCard = true;
         firstCard = this;
+        firstCard.style.cursor = 'default';
         turning();
 
         return;
@@ -86,6 +89,7 @@ function flipCard() {
 
     // 2e click
     secondCard = this;
+    secondCard.style.cursor = 'default';
     turning();
 
     checkForMatch();
@@ -93,49 +97,103 @@ function flipCard() {
 
 function checkForMatch() {
     let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
+    // let card = document.querySelectorAll('.memory-card');
 
     if (isMatch) {
+        // lockCard = true;
         disableCards();
+        firstCard.classList.add('validateCard');
+        secondCard.classList.add('validateCard');
         score += 50;
     } else {
+        // lockCard = false;
         unflipCards();
         score = Math.max(0, score - 10);
     }
 
     score > 0 ? eltScore.textContent = `${score} points` : eltScore.textContent = score;
 
-    if (document.getElementsByClassName('flip').length == 16) {
-        loopAud++;
-        victory();
-        alert(`Félicitations !! Tu as fini la partie avec ${score} points.`);
+    // if (document.getElementsByClassName('flip').length == 16) {
+    //     loopAud++;
+    //     victory();
+    //     alert(`Félicitations !! Tu as fini la partie avec ${score} points.`);
 
-        sectionRestart();
+    //     sectionRestart();
 
-        document.addEventListener('click', function(e) {
-            if (e.target.className == 'restart') {
-                location.reload();
-            }
-        });
-    }
+    //     document.addEventListener('click', function(e) {
+    //         if (e.target.className == 'restart') {
+    //             location.reload();
+    //         }
+    //     });
+    // }
 }
 
 function disableCards() {
-    setTimeout(() => {
-        goodCard();
-    }, 1000);
 
     setTimeout(() => {
-        firstCard.style.transition = "opacity 1s linear 0s";
-        firstCard.style.opacity = 0;
-        secondCard.style.transition = "opacity 1s linear 0s";
-        secondCard.style.opacity = 0;
+        // firstCard.classList.remove('flip');
+        // secondCard.classList.remove('flip');
+        goodCard();
+
+        let newFirstCard = document.createElement('div');
+        newFirstCard.classList.add('newFirstCard');
+        newFirstCard.style.width = 'calc(25% - 10px)';
+        newFirstCard.style.height = 'calc(25% - 10px)';
+        newFirstCard.style.margin = '5px';
+        newFirstCard.style.position = 'relative';
+
+        let newSecondCard = document.createElement('div');
+        newSecondCard.classList.add('newSecondCard');
+        newSecondCard.style.width = 'calc(25% - 10px)';
+        newSecondCard.style.height = 'calc(25% - 10px)';
+        newSecondCard.style.margin = '5px';
+        newSecondCard.style.position = 'relative';
+        // resetBoard();
+        firstCard.replaceWith(newFirstCard);
+        secondCard.replaceWith(newSecondCard);
+
+        if (document.getElementsByClassName('newFirstCard').length == 8) {
+            // console.log(newFirstCard);
+            loopAud++;
+            victory();
+            alert(`Félicitations !! Tu as fini la partie avec ${score} points.`);
+
+            sectionRestart();
+
+            document.addEventListener('click', function(e) {
+                if (e.target.className == 'restart') {
+                    location.reload();
+                }
+            });
+        }
 
         resetBoard();
-    }, 1500);
+    }, 1000);
+
+    // setTimeout(() => {
+
+    //     // firstCard.style.transition = "opacity 1s linear 0s";
+    //     // firstCard.style.opacity = 0;
+    //     // secondCard.style.transition = "opacity 1s linear 0s";
+    //     // secondCard.style.opacity = 0;
+
+    //     let validateCard = document.getElementsByClassName('validateCard');
+
+    //     // validateCard.onclick = function(e) {
+    //     //     console.log(validateCard.classList);
+    //     // validateCard.classList.remove('memory-card');
+    //     // if (e.target.className == 'flip') {
+    //     // validateCard.preventDefault();
+    //     // alert("Evènement de click détecté");
+    //     // return false;
+    //     // }
+    //     // }
+    // }, 1500);
 }
 
 function unflipCards() {
     lockBoard = true;
+    // lockCard = true;
 
     setTimeout(() => {
         firstCard.classList.remove('flip');
