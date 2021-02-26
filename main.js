@@ -55,12 +55,12 @@ function victory() {
     ambiantSound.pause();
 }
 
-// (function shuffle() {
-//     cards.forEach(card => {
-//         let randomPos = Math.floor(Math.random() * 16);
-//         card.style.order = randomPos;
-//     });
-// })();
+(function shuffle() {
+    cards.forEach(card => {
+        let randomPos = Math.floor(Math.random() * 16);
+        card.style.order = randomPos;
+    });
+})();
 
 cards.forEach(card => card.addEventListener('click', flipCard));
 
@@ -97,42 +97,23 @@ function flipCard() {
 
 function checkForMatch() {
     let isMatch = firstCard.dataset.framework === secondCard.dataset.framework;
-    // let card = document.querySelectorAll('.memory-card');
 
     if (isMatch) {
-        // lockCard = true;
         disableCards();
         firstCard.classList.add('validateCard');
         secondCard.classList.add('validateCard');
         score += 50;
     } else {
-        // lockCard = false;
         unflipCards();
         score = Math.max(0, score - 10);
     }
 
     score > 0 ? eltScore.textContent = `${score} points` : eltScore.textContent = score;
-
-    // if (document.getElementsByClassName('flip').length == 16) {
-    //     loopAud++;
-    //     victory();
-    //     alert(`Félicitations !! Tu as fini la partie avec ${score} points.`);
-
-    //     sectionRestart();
-
-    //     document.addEventListener('click', function(e) {
-    //         if (e.target.className == 'restart') {
-    //             location.reload();
-    //         }
-    //     });
-    // }
 }
 
 function disableCards() {
 
     setTimeout(() => {
-        // firstCard.classList.remove('flip');
-        // secondCard.classList.remove('flip');
         goodCard();
 
         let newFirstCard = document.createElement('div');
@@ -148,12 +129,11 @@ function disableCards() {
         newSecondCard.style.height = 'calc(25% - 10px)';
         newSecondCard.style.margin = '5px';
         newSecondCard.style.position = 'relative';
-        // resetBoard();
+
         firstCard.replaceWith(newFirstCard);
         secondCard.replaceWith(newSecondCard);
 
         if (document.getElementsByClassName('newFirstCard').length == 8) {
-            // console.log(newFirstCard);
             loopAud++;
             victory();
             alert(`Félicitations !! Tu as fini la partie avec ${score} points.`);
@@ -169,31 +149,10 @@ function disableCards() {
 
         resetBoard();
     }, 1000);
-
-    // setTimeout(() => {
-
-    //     // firstCard.style.transition = "opacity 1s linear 0s";
-    //     // firstCard.style.opacity = 0;
-    //     // secondCard.style.transition = "opacity 1s linear 0s";
-    //     // secondCard.style.opacity = 0;
-
-    //     let validateCard = document.getElementsByClassName('validateCard');
-
-    //     // validateCard.onclick = function(e) {
-    //     //     console.log(validateCard.classList);
-    //     // validateCard.classList.remove('memory-card');
-    //     // if (e.target.className == 'flip') {
-    //     // validateCard.preventDefault();
-    //     // alert("Evènement de click détecté");
-    //     // return false;
-    //     // }
-    //     // }
-    // }, 1500);
 }
 
 function unflipCards() {
     lockBoard = true;
-    // lockCard = true;
 
     setTimeout(() => {
         firstCard.classList.remove('flip');
