@@ -109,6 +109,20 @@ function checkForMatch() {
     }
 
     score > 0 ? eltScore.textContent = `${score} points` : eltScore.textContent = score;
+
+    if (document.getElementsByClassName('flip').length == 16) {
+        loopAud++;
+        victory();
+        alert(`Félicitations !! Tu as fini la partie avec ${score} points.`);
+
+        sectionRestart();
+
+        document.addEventListener('click', function(e) {
+            if (e.target.className == 'restart') {
+                location.reload();
+            }
+        });
+    }
 }
 
 function disableCards() {
@@ -116,39 +130,48 @@ function disableCards() {
     setTimeout(() => {
         goodCard();
 
-        let newFirstCard = document.createElement('div');
-        newFirstCard.classList.add('newFirstCard');
-        newFirstCard.style.width = 'calc(25% - 10px)';
-        newFirstCard.style.height = 'calc(25% - 10px)';
-        newFirstCard.style.margin = '5px';
-        newFirstCard.style.position = 'relative';
+        // let newFirstCard = document.createElement('div');
+        // newFirstCard.classList.add('newFirstCard');
+        // newFirstCard.style.width = 'calc(25% - 10px)';
+        // newFirstCard.style.height = 'calc(25% - 10px)';
+        // newFirstCard.style.margin = '5px';
+        // newFirstCard.style.position = 'relative';
 
-        let newSecondCard = document.createElement('div');
-        newSecondCard.classList.add('newSecondCard');
-        newSecondCard.style.width = 'calc(25% - 10px)';
-        newSecondCard.style.height = 'calc(25% - 10px)';
-        newSecondCard.style.margin = '5px';
-        newSecondCard.style.position = 'relative';
+        // let newSecondCard = document.createElement('div');
+        // newSecondCard.classList.add('newSecondCard');
+        // newSecondCard.style.width = 'calc(25% - 10px)';
+        // newSecondCard.style.height = 'calc(25% - 10px)';
+        // newSecondCard.style.margin = '5px';
+        // newSecondCard.style.position = 'relative';
 
-        firstCard.replaceWith(newFirstCard);
-        secondCard.replaceWith(newSecondCard);
+        // firstCard.replaceWith(newFirstCard);
+        // secondCard.replaceWith(newSecondCard);
 
-        if (document.getElementsByClassName('newFirstCard').length == 8) {
-            loopAud++;
-            victory();
-            alert(`Félicitations !! Tu as fini la partie avec ${score} points.`);
+        // if (document.getElementsByClassName('newFirstCard').length == 8) {
+        //     loopAud++;
+        //     victory();
+        //     alert(`Félicitations !! Tu as fini la partie avec ${score} points.`);
 
-            sectionRestart();
+        //     sectionRestart();
 
-            document.addEventListener('click', function(e) {
-                if (e.target.className == 'restart') {
-                    location.reload();
-                }
-            });
-        }
+        //     document.addEventListener('click', function(e) {
+        //         if (e.target.className == 'restart') {
+        //             location.reload();
+        //         }
+        //     });
+        // }
+
+        // resetBoard();
+    }, 1000);
+
+    setTimeout(() => {
+        firstCard.style.transition = "opacity 1s linear 0s";
+        firstCard.style.opacity = 0;
+        secondCard.style.transition = "opacity 1s linear 0s";
+        secondCard.style.opacity = 0;
 
         resetBoard();
-    }, 1000);
+    }, 1500);
 }
 
 function unflipCards() {
