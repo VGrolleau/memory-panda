@@ -1,5 +1,6 @@
 const cards = document.querySelectorAll('.memory-card');
 const playerName = document.querySelector('#player-name');
+const spanCard = document.querySelector('.spanCard');
 let eltScore = document.getElementById('score');
 let muteBtn = document.getElementById('muteBtn');
 let pauseBtn = document.getElementById('btnPause');
@@ -8,7 +9,7 @@ let hasFlippedCard = false;
 let lockBoard = false;
 let lockCard = false;
 let firstCard, secondCard;
-// let loopAud = 0;
+let loopAud = 0;
 let ambiantSound = new Audio('audio/ambiant.mp3');
 
 function ambiant() {
@@ -17,7 +18,7 @@ function ambiant() {
 
     function RelanceAud() {
         ambiantSound.play();
-        // loopAud++;
+        loopAud++;
     }
 
     ambiantSound.onended = function() {
@@ -82,6 +83,7 @@ function flipCard() {
         hasFlippedCard = true;
         firstCard = this;
         firstCard.style.cursor = 'default';
+        console.log(`order = ${firstCard.style.order} + data = ${firstCard.dataset.framework}`);
         turning();
 
         return;
@@ -90,6 +92,7 @@ function flipCard() {
     // 2e click
     secondCard = this;
     secondCard.style.cursor = 'default';
+    console.log(`order = ${secondCard.style.order} + data = ${secondCard.dataset.framework}`);
     turning();
 
     checkForMatch();
@@ -105,6 +108,8 @@ function checkForMatch() {
         score += 50;
     } else {
         unflipCards();
+        firstCard.style.cursor = 'pointer';
+        secondCard.style.cursor = 'pointer';
         score = Math.max(0, score - 10);
     }
 
@@ -126,52 +131,60 @@ function checkForMatch() {
 }
 
 function disableCards() {
+    // let frontFace = document.getElementsByClassName('.front-face');
+    // let backFace = document.querySelector('.back-face');
 
     setTimeout(() => {
         goodCard();
 
-        // let newFirstCard = document.createElement('div');
-        // newFirstCard.classList.add('newFirstCard');
-        // newFirstCard.style.width = 'calc(25% - 10px)';
-        // newFirstCard.style.height = 'calc(25% - 10px)';
-        // newFirstCard.style.margin = '5px';
-        // newFirstCard.style.position = 'relative';
+        // frontFace.style.display = 'none';
+        // backFace.style.display = 'none';
+        // console.log(frontFace.classList);
 
-        // let newSecondCard = document.createElement('div');
-        // newSecondCard.classList.add('newSecondCard');
-        // newSecondCard.style.width = 'calc(25% - 10px)';
-        // newSecondCard.style.height = 'calc(25% - 10px)';
-        // newSecondCard.style.margin = '5px';
-        // newSecondCard.style.position = 'relative';
+        let newFirstCard = document.createElement('div');
+        newFirstCard.classList.add('newFirstCard');
+        newFirstCard.style.width = 'calc(25% - 10px)';
+        newFirstCard.style.height = 'calc(25% - 10px)';
+        newFirstCard.style.margin = '5px';
+        newFirstCard.style.position = 'relative';
+        newFirstCard.style.order = firstCard.style.order;
 
-        // firstCard.replaceWith(newFirstCard);
-        // secondCard.replaceWith(newSecondCard);
+        let newSecondCard = document.createElement('div');
+        newSecondCard.classList.add('newSecondCard');
+        newSecondCard.style.width = 'calc(25% - 10px)';
+        newSecondCard.style.height = 'calc(25% - 10px)';
+        newSecondCard.style.margin = '5px';
+        newSecondCard.style.position = 'relative';
+        newSecondCard.style.order = secondCard.style.order;
 
-        // if (document.getElementsByClassName('newFirstCard').length == 8) {
-        //     loopAud++;
-        //     victory();
-        //     alert(`Félicitations !! Tu as fini la partie avec ${score} points.`);
+        firstCard.replaceWith(newFirstCard);
+        secondCard.replaceWith(newSecondCard);
 
-        //     sectionRestart();
+        if (document.getElementsByClassName('newFirstCard').length == 8) {
+            loopAud++;
+            victory();
+            alert(`Félicitations !! Tu as fini la partie avec ${score} points.`);
 
-        //     document.addEventListener('click', function(e) {
-        //         if (e.target.className == 'restart') {
-        //             location.reload();
-        //         }
-        //     });
-        // }
+            sectionRestart();
 
-        // resetBoard();
-    }, 1000);
-
-    setTimeout(() => {
-        firstCard.style.transition = "opacity 1s linear 0s";
-        firstCard.style.opacity = 0;
-        secondCard.style.transition = "opacity 1s linear 0s";
-        secondCard.style.opacity = 0;
+            document.addEventListener('click', function(e) {
+                if (e.target.className == 'restart') {
+                    location.reload();
+                }
+            });
+        }
 
         resetBoard();
-    }, 1500);
+    }, 1000);
+
+    // setTimeout(() => {
+    //     firstCard.style.transition = "opacity 1s linear 0s";
+    //     firstCard.style.opacity = 0;
+    //     secondCard.style.transition = "opacity 1s linear 0s";
+    //     secondCard.style.opacity = 0;
+
+    //     resetBoard();
+    // }, 1500);
 }
 
 function unflipCards() {

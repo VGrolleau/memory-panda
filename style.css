@@ -172,6 +172,19 @@ p {
     backface-visibility: hidden;
 }
 
+.spanCard {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    position: absolute;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.hidden {
+    display: none;
+}
+
 .section-restart {
     display: flex;
     margin: 10px;
@@ -251,7 +264,7 @@ p {
     cursor: pointer;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 750px) {
     #popup-content {
         margin: auto 20px;
     }
