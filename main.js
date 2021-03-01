@@ -22,9 +22,7 @@ function ambiant() {
     }
 
     ambiantSound.onended = function() {
-        // if (loopAud < 1) {
-        timeOutAmbiant = setTimeout(RelanceAud, 500);
-        // }
+        setTimeout(RelanceAud, 500);
     };
 
     muteBtn.addEventListener('click', mute);
@@ -73,7 +71,6 @@ document.getElementById('confirm-name').addEventListener('click', function() {
 
 function flipCard() {
     if (lockBoard) return;
-    // if (lockCard) return;
     if (this === firstCard) return;
 
     this.classList.add('flip');
@@ -83,7 +80,6 @@ function flipCard() {
         hasFlippedCard = true;
         firstCard = this;
         firstCard.style.cursor = 'default';
-        console.log(`order = ${firstCard.style.order} + data = ${firstCard.dataset.framework}`);
         turning();
 
         return;
@@ -92,7 +88,6 @@ function flipCard() {
     // 2e click
     secondCard = this;
     secondCard.style.cursor = 'default';
-    console.log(`order = ${secondCard.style.order} + data = ${secondCard.dataset.framework}`);
     turning();
 
     checkForMatch();
@@ -131,15 +126,9 @@ function checkForMatch() {
 }
 
 function disableCards() {
-    // let frontFace = document.getElementsByClassName('.front-face');
-    // let backFace = document.querySelector('.back-face');
 
     setTimeout(() => {
         goodCard();
-
-        // frontFace.style.display = 'none';
-        // backFace.style.display = 'none';
-        // console.log(frontFace.classList);
 
         let newFirstCard = document.createElement('div');
         newFirstCard.classList.add('newFirstCard');
@@ -176,15 +165,6 @@ function disableCards() {
 
         resetBoard();
     }, 1000);
-
-    // setTimeout(() => {
-    //     firstCard.style.transition = "opacity 1s linear 0s";
-    //     firstCard.style.opacity = 0;
-    //     secondCard.style.transition = "opacity 1s linear 0s";
-    //     secondCard.style.opacity = 0;
-
-    //     resetBoard();
-    // }, 1500);
 }
 
 function unflipCards() {
